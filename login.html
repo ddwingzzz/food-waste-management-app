@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Login</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f2f2f2;
+text-align:center;
+padding:80px;
+}
+
+.box{
+background:white;
+width:300px;
+margin:auto;
+padding:25px;
+border-radius:10px;
+box-shadow:0 0 10px gray;
+}
+
+input{
+width:90%;
+padding:8px;
+margin:8px;
+}
+
+button{
+background:green;
+color:white;
+padding:10px;
+border:none;
+width:95%;
+font-size:16px;
+border-radius:5px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Login</h2>
+
+<input type="text" id="username" placeholder="Enter your name">
+
+<button onclick="login()">Enter App</button>
+
+</div>
+
+
+<script>
+
+function login(){
+
+let name=document.getElementById("username").value;
+
+localStorage.setItem("username",name);
+
+window.location="index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Smart Food Waste Management</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f2f2f2;
+text-align:center;
+padding:40px;
+}
+
+.container{
+background:white;
+padding:25px;
+width:420px;
+margin:auto;
+border-radius:12px;
+box-shadow:0 0 10px gray;
+}
+
+#welcome{
+font-size:18px;
+margin-bottom:10px;
+}
+
+h2{
+color:green;
+}
+
+input,select{
+width:90%;
+padding:8px;
+margin:6px;
+}
+
+button{
+background:green;
+color:white;
+padding:10px;
+border:none;
+width:95%;
+border-radius:5px;
+cursor:pointer;
+margin-top:5px;
+}
+
+#result{
+margin-top:15px;
+font-size:18px;
+font-weight:bold;
+padding:10px;
+border-radius:8px;
+}
+
+.hidden{
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<p id="welcome"></p>
+
+<h2>Smart Food Waste Management</h2>
+
+<input type="text" id="food" placeholder="Food Name">
+
+<input type="text" id="mobile" placeholder="Mobile Number">
+
+<input type="number" id="qty" placeholder="Quantity (plates)">
+
+<input type="number" id="people" placeholder="Number of people">
+
+<input type="number" id="hours" placeholder="Hours since prepared">
+
+<select id="foodType">
+
+<option value="milk">Milk</option>
+<option value="rice">Rice</option>
+<option value="fruit">Fruits</option>
+<option value="bread">Bread</option>
+<option value="veg">Cooked Veg</option>
+<option value="nonveg">Non Veg</option>
+
+</select>
+
+<button onclick="checkFood()">Check Status</button>
+
+<p id="result"></p>
+
+<p id="impact"></p>
+
+<p id="portion"></p>
+
+<p id="storage"></p>
+
+<p id="recipe"></p>
+
+<p id="ai"></p>
+
+<button onclick="showDonate()">Donate this Food</button>
+
+<div id="donateSection" class="hidden">
+
+<h3>Connect Volunteer</h3>
+
+<select id="area">
+
+<option>Velachery</option>
+<option>Tambaram</option>
+<option>T Nagar</option>
+<option>Adyar</option>
+<option>Anna Nagar</option>
+<option>Chrompet</option>
+
+</select>
+
+<select id="pickup">
+
+<option>Within 1 hour</option>
+<option>Within 2 hours</option>
+<option>Evening pickup</option>
+
+</select>
+
+<button onclick="donateFood()">Send Request</button>
+
+<p id="donateResult"></p>
+
+</div>
+
+<br>
+
+<a href="https://robinhoodarmy.com/" target="_blank">
+<button>Contact Robin Hood Army</button>
+</a>
+
+<a href="https://www.nofoodwaste.org/" target="_blank">
+<button>Donate via No Food Waste</button>
+</a>
+
+</div>
+
+
+<script>
+
+let username=localStorage.getItem("username");
+
+document.getElementById("welcome").innerHTML=
+"Welcome "+username+" 👋";
+
+
+function checkFood(){
+
+let qty=document.getElementById("qty").value;
+
+let people=document.getElementById("people").value;
+
+let time=document.getElementById("hours").value;
+
+let type=document.getElementById("foodType").value;
+
+let safeTime=6;
+
+let storageTip="";
+let recipe="";
+
+
+if(type=="milk"){
+safeTime=3;
+storageTip="Store in refrigerator.";
+recipe="Use for milkshake.";
+}
+
+if(type=="rice"){
+safeTime=6;
+storageTip="Keep in fridge.";
+recipe="Make fried rice.";
+}
+
+if(type=="fruit"){
+safeTime=12;
+storageTip="Keep in cool place.";
+recipe="Make fruit salad.";
+}
+
+if(type=="bread"){
+safeTime=8;
+storageTip="Keep in dry box.";
+recipe="Make sandwich.";
+}
+
+if(type=="veg"){
+safeTime=6;
+storageTip="Refrigerate.";
+recipe="Make curry wrap.";
+}
+
+if(type=="nonveg"){
+safeTime=4;
+storageTip="Keep in fridge quickly.";
+recipe="Reheat properly.";
+}
+
+
+let result=document.getElementById("result");
+
+let impact=document.getElementById("impact");
+
+let portion=document.getElementById("portion");
+
+let storage=document.getElementById("storage");
+
+let recipeOut=document.getElementById("recipe");
+
+let ai=document.getElementById("ai");
+
+
+if(time<=safeTime/2){
+
+result.innerHTML="Fresh Food";
+result.style.background="lightgreen";
+ai.innerHTML="AI Tip: Food is safe.";
+
+}
+
+else if(time<=safeTime){
+
+result.innerHTML="Consume Soon";
+result.style.background="orange";
+ai.innerHTML="AI Tip: Eat quickly.";
+
+}
+
+else{
+
+result.innerHTML="Donate Immediately";
+result.style.background="red";
+ai.innerHTML="AI Tip: Reduce cooking quantity next time.";
+
+}
+
+
+impact.innerHTML="Can feed "+qty+" people.";
+
+portion.innerHTML=
+"Suggested quantity for "+people+" people: "+people+" plates";
+
+storage.innerHTML="Storage: "+storageTip;
+
+recipeOut.innerHTML="Leftover idea: "+recipe;
+
+}
+
+
+function showDonate(){
+
+document.getElementById("donateSection").style.display="block";
+
+}
+
+
+function donateFood(){
+
+let area=document.getElementById("area").value;
+
+let mobile=document.getElementById("mobile").value;
+
+let pickup=document.getElementById("pickup").value;
+
+let volunteer="";
+
+
+if(area=="Velachery"){
+volunteer="Rahul - 9000000001";
+}
+
+else if(area=="Tambaram"){
+volunteer="Priya - 9000000002";
+}
+
+else if(area=="Adyar"){
+volunteer="Karthik - 9000000003";
+}
+
+else if(area=="Anna Nagar"){
+volunteer="Divya - 9000000004";
+}
+
+else if(area=="Chrompet"){
+volunteer="Suresh - 9000000005";
+}
+
+else{
+volunteer="Helping Hands NGO - 9876543210";
+}
+
+
+document.getElementById("donateResult").innerHTML=
+
+"Request Sent ✔ <br>Volunteer: "+volunteer+
+
+"<br>Your Contact: "+mobile+
+
+"<br>Pickup: "+pickup+
+
+"<br>Status: Waiting for pickup";
+
+}
+
+</script>
+
+</body>
+
+</html>
